@@ -1,13 +1,20 @@
+<h1>To-Do List</h1>
+<br>
+<p>{{remaining()}} of {{items.length}} remaining</p>
+
 <div>
-    <label for="search">Search:</label>
+    Search:
     <input type="search" ng-model="search">
 </div>
 
 <ul>
     <li class="{{item.type}}" ng-repeat="item in items | filter:search">
-         Item:{{item.name}} Type:{{item.type}} <a href="#/item/{{$index}}"><button class="btn-default">Edit</button></a>
+        <input type="checkbox" ng-model="item.done">
+        <span class="done-{{item.done}}">Item:{{item.name}} Type:{{item.type}}</span> <a href="#/item/{{$index}}">Edit</a>
     </li>
 </ul>
+
+
 
 <form ng-submit="addTodo()">
     <input type="text" ng-model="todoText"  size="30"

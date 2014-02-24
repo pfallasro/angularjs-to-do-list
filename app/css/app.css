@@ -1,11 +1,17 @@
 /* app css stylesheet */
 
 
+body{font:14px/1.5 sans-serif; color:#222; padding: 20px;}
 
-body{font:14px/1.5 sans-serif; color:#222; padding: 20px;margin:3em}
+ul{width: 40%}
 
-.HomeWork{background-color: #ad6704}
+.HomeWork{color: #ad6704;}
 
-.Training{background-color: #5eb95e}
+.Training{color: #5eb95e;}
 
-.Assessment{background-color: #b3b3b3}
+.Assessment{color: #b3b3b3;}
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}

@@ -8,8 +8,8 @@ var toDoListApp = angular.module('toDoListApp', [
 toDoListApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'partials/list.html'
-
+            templateUrl: 'partials/list.html',
+            controller: 'listCntrl'
         })
         .otherwise({
             redirectTo: '/'
