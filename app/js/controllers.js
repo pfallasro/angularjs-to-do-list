@@ -7,4 +7,16 @@ toDoListControllers.controller('listCntrl', ['$scope',
             {name:'Jeffrey', type:'Training'},
             {name:'Joe', type:'Assessment'}
         ];
+
+        $scope.options = [
+            {name:'HomeWork'},
+            {name:'Training'},
+            {name:'Assessment'}
+        ];
+
+        $scope.addTodo = function() {
+            $scope.items.push({name:$scope.todoText, type:$scope.currentItem});
+            $scope.todoText = '';
+        };
+
     }]);

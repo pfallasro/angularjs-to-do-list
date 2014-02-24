@@ -5,12 +5,16 @@
 
 <ul>
     <li class="{{item.type}}" ng-repeat="item in items | filter:search">
-         Item:{{item.name}} Type:{{item.type}} <a href="#/item/{{$index}}">Edit</a>
+         Item:{{item.name}} Type:{{item.type}} <a href="#/item/{{$index}}"><button class="btn-default">Edit</button></a>
     </li>
 </ul>
 
 <form ng-submit="addTodo()">
     <input type="text" ng-model="todoText"  size="30"
            placeholder="add new to-do here">
+
+    <select ng-model="currentItem" ng-options="i.name for i in options">
+    </select>
+
     <input class="btn-primary" type="submit" value="add">
 </form>
