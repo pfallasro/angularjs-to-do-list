@@ -15,13 +15,10 @@
 </ul>
 
 
+<input type="text" ng-model="todoText"  size="30" placeholder="add new to-do here">
 
-<form ng-submit="addTodo()">
-    <input type="text" ng-model="todoText"  size="30"
-           placeholder="add new to-do here">
+<select ng-model="currentItem" ng-options="i.name for i in options">
+</select>
 
-    <select ng-model="currentItem" ng-options="i.name for i in options">
-    </select>
-
-    <input class="btn-primary" type="submit" value="add">
-</form>
+<input class="btn-primary" type="submit" value="add" ng-click="addTodo()">
+<input class="btn-primary" type="submit" value="archive" ng-click="archive()">

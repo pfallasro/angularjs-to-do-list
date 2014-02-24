@@ -30,4 +30,12 @@ toDoListControllers.controller('listCntrl', ['$scope',
             return count;
         };
 
+        $scope.archive = function() {
+            var oldItems = $scope.items;
+            $scope.items = [];
+            angular.forEach(oldItems, function(item) {
+                if (!item.done) $scope.items.push(item);
+            });
+        };
+
     }]);
