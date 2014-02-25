@@ -1,12 +1,13 @@
 var toDoListControllers = angular.module('toDoListControllers', []);
 
-toDoListControllers.controller('listCntrl', ['$scope',
-    function($scope) {
-        $scope.items = [
-            {name:'Item1', type:'HomeWork', done:false},
-            {name:'Item2', type:'Training', done:false},
-            {name:'Item3', type:'Assessment', done:false}
-        ];
+toDoListControllers.controller('listCntrl', ['$scope', 'todoService',
+    function($scope, todoService) {
+		$scope.init = function(){
+			$scope.items = todoService.get();
+            $scope.todoText = '';
+		}
+		
+		$scope.init();
 
         $scope.options = [
             {name:'HomeWork'},
@@ -14,13 +15,26 @@ toDoListControllers.controller('listCntrl', ['$scope',
             {name:'Assessment'}
         ];
 
-        $scope.currentItem = $scope.options[0];
-
-        $scope.addTodo = function() {
-            console.log($scope.currentItem);
-            $scope.items.push({name:$scope.todoText, type:$scope.currentItem.name, done:false});
-            $scope.todoText = '';
+        $scope.search = {
+            type: '',
+            name: ''
         };
+
+        $scope.currentItem = $scope.options[0];
+		
+		$scope.addTodo = function() {
+
+            if ($scope.todoText.trim()) {
+                todoService.post({
+                    item: {
+                        name: $scope.todoText,
+                        type: $scope.currentItem.name,
+                        done: false
+                    }
+                });
+                $scope.todoText = '';
+            }
+		};
 
         $scope.remaining = function() {
             var count = 0;
@@ -29,13 +43,68 @@ toDoListControllers.controller('listCntrl', ['$scope',
             });
             return count;
         };
+		
+		$scope.delete = function(item) {
+            todoService.delete(item);
+        };
+		
+		$scope.order = ['name', 'type'];
+		
+		$scope.asc = function() {
+           $scope.order[0] = 'name';
+        };
+		
+		$scope.desc = function() {
+           $scope.order[0] = '-name';
+        };
 
-        $scope.archive = function() {
-            var oldItems = $scope.items;
-            $scope.items = [];
-            angular.forEach(oldItems, function(item) {
-                if (!item.done) $scope.items.push(item);
-            });
+        $scope.homework = function() {
+            $scope.search.type = 'HomeWork';
+        };
+
+        $scope.training = function() {
+            $scope.search.type = 'Training';
+        };
+
+        $scope.assessment = function() {
+            $scope.search.type = 'Assessment';
+        };
+
+        $scope.all = function() {
+            $scope.search.type = '';
         };
 
     }]);
+	
+toDoListControllers.controller('editCntrl', ['$scope', '$routeParams', 'todoService',
+    function($scope, $routeParams, todoService) {
+		
+		$scope.init = function(){
+	
+		}
+		
+		$scope.init();
+		
+		$scope.item = $scope.items[$routeParams.index];
+
+		switch($scope.item.type){
+			case 'HomeWork':
+			  $scope.currentType = $scope.options[0];
+			  break;
+			case 'Training':
+			  $scope.currentType = $scope.options[1];
+			  break;
+			case 'Assessment':
+			  $scope.currentType = $scope.options[2];
+			  break;
+			default:
+			  $scope.currentType = $scope.options[0];
+		}
+
+		$scope.index = $routeParams.index;
+
+        $scope.edit = function () {
+            $scope.item.type = $scope.currentType.name;
+            todoService.edit($scope.index, $scope.item);
+        };
+	}]);

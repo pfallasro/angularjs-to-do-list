@@ -2,7 +2,8 @@
 
 var toDoListApp = angular.module('toDoListApp', [
     'ngRoute',
-    'toDoListControllers'
+    'toDoListControllers',
+	'toDoListServices'
 ]);
 
 toDoListApp.config(['$routeProvider', function ($routeProvider) {
@@ -11,6 +12,10 @@ toDoListApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/list.html',
             controller: 'listCntrl'
         })
+		.when('/edit/:index', {
+				templateUrl:'partials/edit.html',
+				controller:'editCntrl'
+		})
         .otherwise({
             redirectTo: '/'
         });

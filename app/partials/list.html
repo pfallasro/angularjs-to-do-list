@@ -4,13 +4,19 @@
 
 <div>
     Search:
-    <input type="search" ng-model="search">
+    <input type="search" ng-model="search.name">
+	<input class="btn-primary" type="submit" value="Asc" ng-click="asc()">
+	<input class="btn-primary" type="submit" value="Desc" ng-click="desc()">
+    <input class="btn-primary" type="submit" value="HomeWork" ng-click="homework()">
+    <input class="btn-primary" type="submit" value="Training" ng-click="training()">
+    <input class="btn-primary" type="submit" value="Assessment" ng-click="assessment()">
+    <input class="btn-primary" type="submit" value="All" ng-click="all()">
 </div>
 
 <ul>
-    <li class="{{item.type}}" ng-repeat="item in items | filter:search">
+    <li class="{{item.type}}" ng-repeat="item in items| filter:search | orderBy:order" >
         <input type="checkbox" ng-model="item.done">
-        <span class="done-{{item.done}}">Item:{{item.name}} Type:{{item.type}}</span> <a href="#/item/{{$index}}">Edit</a>
+        <span class="done-{{item.done}}">Item:{{item.name}} Type:{{item.type}} {{index}} </span>  |<a href="" ng-click="delete(item)">Delete</a>|<a href="#/edit/{{$index}}">Edit</a>|
     </li>
 </ul>
 
@@ -21,4 +27,3 @@
 </select>
 
 <input class="btn-primary" type="submit" value="add" ng-click="addTodo()">
-<input class="btn-primary" type="submit" value="archive" ng-click="archive()">
